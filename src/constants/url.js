@@ -1,6 +1,6 @@
 export const URLS = {
     sign_in: 'api/auth/sign-in',
-    category_get_all: '/api/categories/get-all',
+    category_get_all: '/api/group/get-all',
     category_get_one: '/api/categories/get',
     category_add: '/api/categories/add',
     category_delete: '/api/categories/delete',
@@ -41,4 +41,8 @@ export const URLS = {
     ticket_get_all: '/api/ticket/get-all',
     order_info: "/api/order/get-info",
     order_info_all: "/api/order/get-info-all",
+    courier_list: "/api/courier/get-all",
+    courier_add: "/api/courier/add",
+    courier_edit: "/api/courier/edit",
+    courier_block: "/api/courier/block",
 };

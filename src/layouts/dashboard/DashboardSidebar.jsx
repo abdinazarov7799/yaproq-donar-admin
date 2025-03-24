@@ -24,6 +24,10 @@ const DashboardSidebar = () => {
             key: "/banner",
         },
         {
+            label: t("Couriers"),
+            key: "/couriers",
+        },
+        {
             label: t("Users"),
             key: "/users",
         },
@@ -32,25 +36,13 @@ const DashboardSidebar = () => {
             key: "/branches",
         },
         {
-            label: t("Measuries"),
-            key: "/measuries",
-        },
-        {
-            label: t("Variations"),
-            key: "/variations",
-        },
-        {
-            label: t("Tickets"),
-            key: "/tickets",
-        },
-        {
             label: t("Constants"),
             key: "/constants",
         },
-        {
-            label: t("Statistics"),
-            key: "/statistics",
-        },
+        // {
+        //     label: t("Statistics"),
+        //     key: "/statistics",
+        // },
         {
             label: t("Translations"),
             key: "/translations",

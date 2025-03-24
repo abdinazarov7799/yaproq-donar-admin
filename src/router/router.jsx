@@ -29,6 +29,7 @@ import BranchPage from "../modules/branch/pages/BranchPage.jsx";
 import UsersPage from "../modules/users/pages/UsersPage.jsx";
 import TicketsPage from "../modules/tickets/pages/TicketsPage.jsx";
 import StatisticsPage from "../modules/statistics/pages/StatisticsPage.jsx";
+import CouriersPage from "../modules/couriers/pages/CouriersPage.jsx";
 // PAGES
 
 
@@ -66,6 +67,10 @@ const Router = () => {
               <Route
                   path={"/users"}
                   element={<UsersPage />}
+              />
+              <Route
+                  path={"/couriers"}
+                  element={<CouriersPage />}
               />
               <Route
                   path={"/branches"}

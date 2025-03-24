@@ -1,22 +1,27 @@
 import React, {useState} from 'react';
 import Container from "../../../components/Container.jsx";
-import {Button, Input, Pagination, Popconfirm, Row, Space, Switch, Table} from "antd";
+import {Button, Input, Modal, Pagination, Popconfirm, Row, Space, Switch, Table} from "antd";
 import {get} from "lodash";
 import {useTranslation} from "react-i18next";
 import usePaginateQuery from "../../../hooks/api/usePaginateQuery.js";
 import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
-import usePutQuery from "../../../hooks/api/usePutQuery.js";
-import {LockOutlined, UnlockOutlined} from "@ant-design/icons";
+import {EditOutlined, LockOutlined, PlusOutlined, UnlockOutlined} from "@ant-design/icons";
+import useDeleteQuery from "../../../hooks/api/useDeleteQuery.js";
+import CreateEditCourier from "../components/CreateEditCourier.jsx";
 
-const UsersContainer = () => {
+const CouriersContainer = () => {
     const {t} = useTranslation();
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [searchKey,setSearchKey] = useState();
-    const {data,isLoading,refetch} = usePaginateQuery({
-        key: KEYS.users_get_all,
-        url: URLS.users_get_all,
+    const [isCreateModalOpenCreate, setIsCreateModalOpen] = useState(false)
+    const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+    const [itemData, setItemData] = useState(null);
+
+    const {data,isLoading} = usePaginateQuery({
+        key: KEYS.courier_list,
+        url: URLS.courier_list,
         params: {
             params: {
                 size,
@@ -25,38 +30,15 @@ const UsersContainer = () => {
         },
         page
     });
-    const {mutate: mutateBan} = usePutQuery({
-        listKeyId: KEYS.users_get_all
+
+    const {mutate} = useDeleteQuery({
+        listKeyId: KEYS.courier_list
     })
-    const {mutate: mutateAdmin, isLoading: isLoadingAdmin} = usePutQuery({
-        listKeyId: KEYS.users_get_all
-    })
-    const {mutate: mutateUnBan} = usePutQuery({
-        listKeyId: KEYS.users_get_all
-    })
-    const useBan = (id) => {
-        mutateBan({url: `${URLS.users_ban}/${id}`},{
-            onSuccess: () => {
-                refetch();
-            }
-        })
+
+    const useBlock = (id) => {
+        mutate({url: `${URLS.users_unban}/${id}`},{})
     }
-    const useUnBan = (id) => {
-        mutateUnBan({url: `${URLS.users_unban}/${id}`},{
-            onSuccess: () => {
-                refetch();
-            }
-        })
-    }
-    const useChangeAdmin = (id,admin) => {
-        mutateAdmin({
-            url: `${URLS.users_admin}/${id}?admin=${admin}`,
-        },{
-            onSuccess: () => {
-                refetch();
-            }
-        })
-    }
+
     const columns = [
         {
             title: t("ID"),
@@ -79,45 +61,20 @@ const UsersContainer = () => {
             key: "phoneNumber",
         },
         {
-            title: t("Birthday"),
-            dataIndex: "birthday",
-            key: "birthday",
-        },
-        {
             title: t("Chat id"),
             dataIndex: "chatId",
             key: "chatId",
         },
         {
-            title: t("Registered"),
-            dataIndex: "registered",
-            key: "registered",
+            title: t("Blocked"),
+            dataIndex: "blocked",
+            key: "blocked",
             render: (props,data) => (
-                <Switch disabled checked={get(data,'registered')} />
+                <Switch disabled checked={get(data,'blocked')} />
             )
         },
         {
-            title: t("Banned"),
-            dataIndex: "banned",
-            key: "banned",
-            render: (props,data) => (
-                <Switch disabled checked={get(data,'banned')} />
-            )
-        },
-        {
-            title: t("Admin"),
-            dataIndex: "admin",
-            key: "admin",
-            render: (props,data) => (
-                <Switch
-                    onChange={(e) => useChangeAdmin(get(data,'id'),e)}
-                    checked={get(data,'admin')}
-                    loading={isLoadingAdmin}
-                />
-            )
-        },
-        {
-            title: t("Ban / Un Ban"),
+            title: t("Block / Un block"),
             width: 120,
             fixed: 'right',
             key: 'action',
@@ -146,6 +103,18 @@ const UsersContainer = () => {
                     }
                 </Space>
             )
+        },
+        {
+            title: t("Edit"),
+            width: 80,
+            fixed: 'right',
+            key: 'action',
+            render: (props, data, index) => (
+                <Button key={index} icon={<EditOutlined />} onClick={() => {
+                    setIsEditModalOpen(true)
+                    setItemData(data)
+                }} />
+            )
         }
     ]
     return (
@@ -157,6 +126,32 @@ const UsersContainer = () => {
                         onChange={(e) => setSearchKey(e.target.value)}
                         allowClear
                     />
+                    <Button
+                        icon={<PlusOutlined />}
+                        type={"primary"}
+                        onClick={() => setIsCreateModalOpen(true)}
+                    >
+                        {t("New")}
+                    </Button>
+                    <Modal
+                        title={t('Create')}
+                        open={isCreateModalOpenCreate}
+                        onCancel={() => setIsCreateModalOpen(false)}
+                        footer={null}
+                    >
+                        <CreateEditCourier setIsModalOpen={setIsCreateModalOpen}/>
+                    </Modal>
+                    <Modal
+                        title={t("Edit")}
+                        open={isEditModalOpen}
+                        onCancel={() => setIsEditModalOpen(false)}
+                        footer={null}
+                    >
+                        <CreateEditCourier
+                            itemData={itemData}
+                            setIsModalOpen={setIsEditModalOpen}
+                        />
+                    </Modal>
                 </Space>
 
                 <Table
@@ -181,4 +176,4 @@ const UsersContainer = () => {
     );
 };
 
-export default UsersContainer;
+export default CouriersContainer;

@@ -5,7 +5,7 @@ import ru from '../../assets/images/ru.svg'
 import uz from '../../assets/images/uz.png'
 import React from "react";
 import {Header} from "antd/es/layout/layout";
-import {LogoutOutlined, MoonOutlined, SunOutlined} from "@ant-design/icons";
+import {FullscreenExitOutlined, FullscreenOutlined, LogoutOutlined, MoonOutlined, SunOutlined} from "@ant-design/icons";
 import {useTranslation} from "react-i18next";
 import {useSettingsStore, useStore} from "../../store";
 import {get, isEqual} from "lodash";
@@ -26,6 +26,9 @@ const DashboardHeader = () => {
     const setUser = useStore((state) => get(state, "setUser", () => {}));
     const setAuthenticated = useStore((state) => get(state, "setAuthenticated", () => {}));
     const clearToken = useSettingsStore((state) => get(state, "setToken", () => {}));
+    const setCompactMode = useSettingsStore((state) => get(state, "setCompactMode", () => {}));
+    const compactMode = useSettingsStore((state) => get(state, "compactMode"));
+
     const changeLang = (code) => {
         setLang(code);
         return i18n.changeLanguage(code);
@@ -41,7 +44,8 @@ const DashboardHeader = () => {
             key: "UZ",
             icon: <Image src={uz} preview={false} onClick={() => changeLang("UZ")} width={25} height={25} alt={"uzbek flag image"} />,
         },
-    ].filter(item => !isEqual(get(item,"key"),lang));;
+    ].filter(item => !isEqual(get(item,"key"),lang));
+
     const logout = () => {
         Swal.fire({
             title: t("Are you sure you want to exit??"),
@@ -92,6 +96,12 @@ const DashboardHeader = () => {
                           unCheckedChildren={<MoonOutlined />}
                           checked={darkMode}
                           onClick={() => setDarkMode()}
+                      />
+                      <Switch
+                          checkedChildren={<FullscreenOutlined />}
+                          unCheckedChildren={<FullscreenExitOutlined />}
+                          checked={compactMode}
+                          onClick={() => setCompactMode()}
                       />
                       <Dropdown
                           menu={{items}}

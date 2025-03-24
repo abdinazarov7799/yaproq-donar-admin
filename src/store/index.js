@@ -15,9 +15,11 @@ let settingsStore = (set) => ({
     token: null,
     darkMode: storage.get('darkMode') || false,
     lang: storage.get('lang') ||  config.DEFAULT_APP_LANG,
+    compactMode: storage.get('compactMode') || false,
     setToken: (token) => set(state => ({...state, token})),
     setLang: (lang) => set(state => ({...state, lang})),
     setDarkMode: () => set(state => ({...state, darkMode: !state.darkMode})),
+    setCompactMode: () => set(state => ({...state, compactMode: !state.compactMode})),
 })
 
 

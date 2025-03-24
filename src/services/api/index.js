@@ -41,7 +41,7 @@ request.interceptors.response.use(
   },
   (error) => {
     const statusCode = error.response.status;
-    if (statusCode === 403) {
+    if (statusCode === 401) {
         Swal.fire({
           position: "center",
           icon: "error",
@@ -61,31 +61,7 @@ request.interceptors.response.use(
           window.location.reload();
         });
     }
-    // if (statusCode == 500) {
-    //   if (!includes(error?.config?.url, "user")) {
-    //     Swal.fire({
-    //       position: "center",
-    //       icon: "error",
-    //       backdrop: "rgba(0,0,0,0.9)",
-    //       background: "none",
-    //       title: i18next.t("Sorry, Server is not working"),
-    //       showConfirmButton: true,
-    //       showCancelButton: true,
-    //       confirmButtonColor: "#d33",
-    //       cancelButtonColor: "#13D6D1",
-    //       confirmButtonText: i18next.t("Log out"),
-    //       cancelButtonText: i18next.t("Cancel"),
-    //       customClass: {
-    //         title: "title-color",
-    //       },
-    //     }).then((result) => {
-    //       if (result.isConfirmed) {
-    //         window.localStorage.clear();
-    //         window.location.reload();
-    //       }
-    //     });
-    //   }
-    // }
+
     NProgress.done(true);
     return Promise.reject(error);
   }
