@@ -30,7 +30,8 @@ import UsersPage from "../modules/users/pages/UsersPage.jsx";
 import TicketsPage from "../modules/tickets/pages/TicketsPage.jsx";
 import StatisticsPage from "../modules/statistics/pages/StatisticsPage.jsx";
 import CouriersPage from "../modules/couriers/pages/CouriersPage.jsx";
-import OrderPage from "../modules/order/pages/OrderPage.jsx";
+import OrderViewPage from "../modules/order/pages/OrderViewPage.jsx";
+import OrdersPage from "../modules/order/pages/OrdersPage.jsx";
 // PAGES
 
 
@@ -86,16 +87,20 @@ const Router = () => {
                   element={<StatisticsPage />}
               />
               <Route
+                  path={"/orders"}
+                  element={<OrdersPage />}
+              />
+              <Route
                   path={"/translations"}
                   element={<TranslationPage />}
               />
               <Route
                   path={"auth/*"}
-                  element={<Navigate to={"/categories"} replace />}
+                  element={<Navigate to={"/orders"} replace />}
               />
               <Route
                   path={"/"}
-                  element={<Navigate to={"/categories"} replace />}
+                  element={<Navigate to={"/orders"} replace />}
               />
               <Route path={"*"} element={<NotFoundPage />} />
             </Route>
@@ -107,7 +112,7 @@ const Router = () => {
             <Route path={"/auth"} element={<AuthLayout />}>
               <Route index element={<LoginPage />} />
             </Route>
-            <Route path={"/order/:id"}  index element={<OrderPage />} />
+            <Route path={"/order/:id"}  index element={<OrderViewPage />} />
             <Route path={"*"} element={<Navigate to={"/auth"} replace />} />
           </Routes>
         </IsGuest>

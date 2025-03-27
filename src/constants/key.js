@@ -11,5 +11,6 @@ export const KEYS = {
     ticket_get_all: "ticket_get_all",
     order_info: "order_info",
     order_info_all: "order_info_all",
-    courier_list: "courier_list"
+    courier_list: "courier_list",
+    order_list: "order_list"
 };

@@ -41,6 +41,7 @@ export const URLS = {
     ticket_get_all: '/api/ticket/get-all',
     order_info: "/api/order/get-info",
     order_info_all: "/api/order/get-info-all",
+    order_list: "/api/order/get-all",
     courier_list: "/api/courier/get-all",
     courier_add: "/api/courier/add",
     courier_edit: "/api/courier/edit",

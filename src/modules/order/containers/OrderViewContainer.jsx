@@ -10,7 +10,7 @@ import {KEYS} from "../../../constants/key.js";
 import {URLS} from "../../../constants/url.js";
 import usePutQuery from "../../../hooks/api/usePutQuery.js";
 
-const OrderContainer = ({id}) => {
+const OrderViewContainer = ({id}) => {
     const {t} = useTranslation();
     const [selected, setSelected] = useState(null);
     const {data,isLoading} = useGetOneQuery({
@@ -106,4 +106,4 @@ const OrderContainer = ({id}) => {
     );
 };
 
-export default OrderContainer;
+export default OrderViewContainer;

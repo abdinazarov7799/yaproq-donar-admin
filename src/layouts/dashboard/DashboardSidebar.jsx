@@ -12,6 +12,10 @@ const DashboardSidebar = () => {
 
     const items = [
         {
+            label: t("Orders"),
+            key: "/orders",
+        },
+        {
             label: t("Categories"),
             key: "/categories",
         },
