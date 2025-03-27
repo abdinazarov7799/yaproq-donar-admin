@@ -30,6 +30,7 @@ import UsersPage from "../modules/users/pages/UsersPage.jsx";
 import TicketsPage from "../modules/tickets/pages/TicketsPage.jsx";
 import StatisticsPage from "../modules/statistics/pages/StatisticsPage.jsx";
 import CouriersPage from "../modules/couriers/pages/CouriersPage.jsx";
+import OrderPage from "../modules/order/pages/OrderPage.jsx";
 // PAGES
 
 
@@ -106,6 +107,7 @@ const Router = () => {
             <Route path={"/auth"} element={<AuthLayout />}>
               <Route index element={<LoginPage />} />
             </Route>
+            <Route path={"/order/:id"}  index element={<OrderPage />} />
             <Route path={"*"} element={<Navigate to={"/auth"} replace />} />
           </Routes>
         </IsGuest>
